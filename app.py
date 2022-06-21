@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import filedialog
 import shutil
 from pathlib import Path
+import time
 
 
 root = Tk()
@@ -12,12 +13,12 @@ Label(root, width=40, text='Inserisci il path della cartella', font=('Arial', 12
 e = Entry(root, width=50, borderwidth=3)
 e.pack()
 
-def open():
+def apri():
     root.filename = filedialog.askdirectory(initialdir=os.getcwd(), title="Seleziona una cartella")
     e.insert(0, root.filename)
 
 
-Button(root, text="Select Folder", command=open).pack()
+Button(root, text="Select Folder", command=apri).pack()
 
 
 Label(root, width=40, text='Inserisci il suffisso', font=('Arial', 12)).pack()
@@ -32,6 +33,22 @@ def foo():
     path = Path(e.get())
     suffisso = div.get()
     dir_list = os.listdir(path)
+
+    if e.get() :
+        now = time.localtime(time.time())
+        f_name = f'backup_{now.tm_year}_{now.tm_month}_{now.tm_day}_{now.tm_hour}_{now.tm_min}.txt'
+        with open(f_name, 'w') as bkp:
+            for root, dirs, files in os.walk(path):
+                for d in dirs:
+                    d_path = Path(root) / d
+                    bkp.write(d_path, '\n')
+                    print(d_path)
+                for f in files:
+                    f_path = Path(root) / f
+                    bkp.write(f_path, '\n')
+                    print(f_path)
+
+            
 
     for sub_dir in dir_list:
         if sub_dir != 'COPIONE' and not sub_dir.startswith('.'):
@@ -65,5 +82,24 @@ def foo():
         print('\nCopia effettuata con successo!')
 
 Button(root, text="Esegui", padx=20, pady=4, command=foo).pack()
+
+def tree_printer():
+    root = Path(e.get())
+    now = time.localtime(time.time())
+    f_name = f'backup_{now.tm_year}_{now.tm_mon}_{now.tm_mday}_{now.tm_hour}_{now.tm_min}.txt'
+    print(f_name)
+    with open(f_name, 'w') as bkp:
+        for root, dirs, files in os.walk(root):
+            for d in dirs:
+                d_path = Path(root) / d
+                bkp.write(f'{d_path}\n')
+                print(d_path)
+            for f in files:
+                f_path = Path(root) / f
+                bkp.write(f'{f_path}\n')
+                print(f_path)
+
+
+Button(root, text="Tree", padx=20, pady=4, command=tree_printer).pack()
 
 root.mainloop()
