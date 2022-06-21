@@ -34,7 +34,7 @@ def foo():
     dir_list = os.listdir(path)
 
     for sub_dir in dir_list:
-        if sub_dir != 'COPIONE':
+        if sub_dir != 'COPIONE' and not sub_dir.startswith('.'):
             sub_path = path / sub_dir
             sub_list = os.listdir(sub_path)
             os.chdir(sub_path)
@@ -56,7 +56,7 @@ def foo():
         # print(dir_list)
         for sub_dir in dir_list:
             # print(sub_dir)
-            if sub_dir != 'COPIONE':
+            if sub_dir != 'COPIONE' and not sub_dir.startswith('.'):
                 sub_path = path / sub_dir
                 # print('\n\n')
                 # print('sub_path', sub_path)
