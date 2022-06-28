@@ -1,0 +1,14 @@
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina1
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina2
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina3
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina1\Dir1
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina1\Dir2
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina1\Dir1\kasd.py
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina1\Dir1\ree.js
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina1\Dir2\tiu.c
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina2\Dir3
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina2\Dir4
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina2\Dir3\pop.cpp
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina2\Dir4\as.c
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina3\Dir5
+C:\Users\marco.serena\OneDrive - Accenture\Desktop\Desktop\Ultimator6000\Prove\Pagina3\Dir5\sas.py

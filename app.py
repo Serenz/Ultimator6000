@@ -32,7 +32,7 @@ c1.pack()
 def foo():
     path = Path(e.get())
     suffisso = div.get()
-    dir_list = os.listdir(path)
+    main_dir_list = os.listdir(path)
 
     if e.get() :
         now = time.localtime(time.time())
@@ -48,21 +48,25 @@ def foo():
                     bkp.write(f_path, '\n')
                     print(f_path)
 
-            
-
-    for sub_dir in dir_list:
+    for sub_dir in main_dir_list:
         if sub_dir != 'COPIONE' and not sub_dir.startswith('.'):
             sub_path = path / sub_dir
             sub_list = os.listdir(sub_path)
             os.chdir(sub_path)
-            count = 1
-            for f in sub_list:
-                file_path = sub_path / f
-                # print('file path:', file_path)
-                extension = f.split('.')[-1]
-                new_name = f'{sub_dir}-{count}-{suffisso}.{extension}'
-                os.rename(file_path, new_name)
-                count += 1
+            sub_dir_list = os.listdir(sub_path)
+            for sub_sub_dir in sub_dir_list:
+                if not sub_sub_dir.startswith('.'):
+                    sub_sub_path = sub_path / sub_sub_dir
+                    sub_sub_list = os.listdir(sub_sub_path)
+                    os.chdir(sub_sub_path)
+                    count = 1
+                    for f in sub_sub_list:
+                        file_path = sub_sub_path / f
+                        # print('file path:', file_path)
+                        extension = f.split('.')[-1]
+                        new_name = f'{sub_dir}-{sub_sub_dir}-{count}-{suffisso}.{extension}'
+                        os.rename(file_path, new_name)
+                        count += 1
 
     print('\nRenaming effettuato con successo!')
     if var1.get() == 1:
@@ -71,17 +75,24 @@ def foo():
             os.mkdir(new_dir)
 
         # print(dir_list)
-        for sub_dir in dir_list:
+        for sub_dir in main_dir_list:
             # print(sub_dir)
             if sub_dir != 'COPIONE' and not sub_dir.startswith('.'):
                 sub_path = path / sub_dir
-                # print('\n\n')
-                # print('sub_path', sub_path)
-                # print('new_path', new_dir)
-                shutil.copytree(sub_path, new_dir, dirs_exist_ok=True)
+                sub_sub_list = os.listdir(sub_path)
+                os.chdir(sub_path)
+                for sub_sub_dir in sub_sub_list:
+                    if not sub_sub_dir.startswith('.'):
+                        for sub_sub_dir in sub_sub_list:
+                            sub_sub_path = sub_path / sub_sub_dir
+                            # print('\n\n')
+                            # print('sub_path', sub_path)
+                            # print('new_path', new_dir)
+                            shutil.copytree(sub_sub_path, new_dir, dirs_exist_ok=True)
         print('\nCopia effettuata con successo!')
 
 Button(root, text="Esegui", padx=20, pady=4, command=foo).pack()
+
 
 def tree_printer():
     root = Path(e.get())
