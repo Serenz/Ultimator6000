@@ -35,6 +35,10 @@ def foo():
     main_dir_list = os.listdir(path)
 
     if e.get() :
+        bkp_dir = path / 'BACKUPS'
+        if not os.path.exists(bkp_dir):
+            os.mkdir(bkp_dir)
+        os.chdir(bkp_dir)
         now = time.localtime(time.time())
         f_name = f'backup_{now.tm_year}_{now.tm_month}_{now.tm_day}_{now.tm_hour}_{now.tm_min}.txt'
         with open(f_name, 'w') as bkp:
@@ -49,11 +53,10 @@ def foo():
                     print(f_path)
 
     for sub_dir in main_dir_list:
-        if sub_dir != 'COPIONE' and not sub_dir.startswith('.'):
+        if sub_dir != 'COPIONE' and not sub_dir.startswith('.') and sub_dir != 'BACKUPS':
             sub_path = path / sub_dir
-            sub_list = os.listdir(sub_path)
-            os.chdir(sub_path)
             sub_dir_list = os.listdir(sub_path)
+            os.chdir(sub_path)
             for sub_sub_dir in sub_dir_list:
                 if not sub_sub_dir.startswith('.'):
                     sub_sub_path = sub_path / sub_sub_dir
@@ -77,7 +80,7 @@ def foo():
         # print(dir_list)
         for sub_dir in main_dir_list:
             # print(sub_dir)
-            if sub_dir != 'COPIONE' and not sub_dir.startswith('.'):
+            if sub_dir != 'COPIONE' and not sub_dir.startswith('.') and sub_dir != 'BACKUPS':
                 sub_path = path / sub_dir
                 sub_sub_list = os.listdir(sub_path)
                 os.chdir(sub_path)
@@ -96,8 +99,12 @@ Button(root, text="Esegui", padx=20, pady=4, command=foo).pack()
 
 def tree_printer():
     root = Path(e.get())
+    bkp_dir = root / 'BACKUPS'
+    if not os.path.exists(bkp_dir):
+        os.mkdir(bkp_dir)
+    os.chdir(bkp_dir)
     now = time.localtime(time.time())
-    f_name = f'backup_{now.tm_year}_{now.tm_mon}_{now.tm_mday}_{now.tm_hour}_{now.tm_min}.txt'
+    f_name = f'backup_{now.tm_year}_{now.tm_mon}_{now.tm_mday}_{now.tm_hour}_{now.tm_min}_{now.tm_sec}.txt'
     print(f_name)
     with open(f_name, 'w') as bkp:
         for root, dirs, files in os.walk(root):
