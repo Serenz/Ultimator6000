@@ -29,6 +29,8 @@ var1 = IntVar()
 c1 = Checkbutton(root, text='Copiare in nuova cartella',variable=var1, onvalue=1, offvalue=0, font=('Arial', 12))
 c1.pack()
 
+EXCLUDE = {'COPIONE', 'BACKUPS'}
+
 def foo():
     path = Path(e.get())
     suffisso = div.get()
@@ -44,7 +46,7 @@ def foo():
         with open(f_name, 'w') as bkp:
             for root, dirs, files in os.walk(path):
                 for d in dirs:
-                    if d != 'COPIONE' and d != 'BACKUPS':
+                    if d not in EXCLUDE:
                         d_path = Path(root) / d
                         bkp.write(f'{d_path}\n')
                         # print(d_path)
@@ -55,7 +57,7 @@ def foo():
                         # print(f_path)
 
     for sub_dir in main_dir_list:
-        if sub_dir != 'COPIONE' and not sub_dir.startswith('.') and sub_dir != 'BACKUPS':
+        if sub_dir not in EXCLUDE and not sub_dir.startswith('.'):
             sub_path = path / sub_dir
             sub_dir_list = os.listdir(sub_path)
             os.chdir(sub_path)
@@ -82,7 +84,7 @@ def foo():
         # print(dir_list)
         for sub_dir in main_dir_list:
             # print(sub_dir)
-            if sub_dir != 'COPIONE' and not sub_dir.startswith('.') and sub_dir != 'BACKUPS':
+            if sub_dir not in EXCLUDE and not sub_dir.startswith('.'):
                 sub_path = path / sub_dir
                 sub_sub_list = os.listdir(sub_path)
                 os.chdir(sub_path)
