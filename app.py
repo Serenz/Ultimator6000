@@ -40,17 +40,19 @@ def foo():
             os.mkdir(bkp_dir)
         os.chdir(bkp_dir)
         now = time.localtime(time.time())
-        f_name = f'backup_{now.tm_year}_{now.tm_month}_{now.tm_day}_{now.tm_hour}_{now.tm_min}.txt'
+        f_name = f'backup_{now.tm_year}_{now.tm_mon}_{now.tm_mday}_{now.tm_hour}_{now.tm_min}_{now.tm_sec}.txt'
         with open(f_name, 'w') as bkp:
             for root, dirs, files in os.walk(path):
                 for d in dirs:
-                    d_path = Path(root) / d
-                    bkp.write(d_path, '\n')
-                    print(d_path)
+                    if d != 'COPIONE' and d != 'BACKUPS':
+                        d_path = Path(root) / d
+                        bkp.write(f'{d_path}\n')
+                        # print(d_path)
                 for f in files:
-                    f_path = Path(root) / f
-                    bkp.write(f_path, '\n')
-                    print(f_path)
+                    if not 'COPIONE' in root and not 'BACKUPS' in root:
+                        f_path = Path(root) / f
+                        bkp.write(f'{f_path}\n')
+                        # print(f_path)
 
     for sub_dir in main_dir_list:
         if sub_dir != 'COPIONE' and not sub_dir.startswith('.') and sub_dir != 'BACKUPS':
@@ -97,27 +99,27 @@ def foo():
 Button(root, text="Esegui", padx=20, pady=4, command=foo).pack()
 
 
-def tree_printer():
-    root = Path(e.get())
-    bkp_dir = root / 'BACKUPS'
-    if not os.path.exists(bkp_dir):
-        os.mkdir(bkp_dir)
-    os.chdir(bkp_dir)
-    now = time.localtime(time.time())
-    f_name = f'backup_{now.tm_year}_{now.tm_mon}_{now.tm_mday}_{now.tm_hour}_{now.tm_min}_{now.tm_sec}.txt'
-    print(f_name)
-    with open(f_name, 'w') as bkp:
-        for root, dirs, files in os.walk(root):
-            for d in dirs:
-                d_path = Path(root) / d
-                bkp.write(f'{d_path}\n')
-                print(d_path)
-            for f in files:
-                f_path = Path(root) / f
-                bkp.write(f'{f_path}\n')
-                print(f_path)
+# def tree_printer():
+#     root = Path(e.get())
+#     bkp_dir = root / 'BACKUPS'
+#     if not os.path.exists(bkp_dir):
+#         os.mkdir(bkp_dir)
+#     os.chdir(bkp_dir)
+#     now = time.localtime(time.time())
+#     f_name = f'backup_{now.tm_year}_{now.tm_mon}_{now.tm_mday}_{now.tm_hour}_{now.tm_min}_{now.tm_sec}.txt'
+#     # print(f_name)
+#     with open(f_name, 'w') as bkp:
+#         for root, dirs, files in os.walk(root):
+#             for d in dirs:
+#                 d_path = Path(root) / d
+#                 bkp.write(f'{d_path}\n')
+#                 # print(d_path)
+#             for f in files:
+#                 f_path = Path(root) / f
+#                 bkp.write(f'{f_path}\n')
+#                 # print(f_path)
 
 
-Button(root, text="Tree", padx=20, pady=4, command=tree_printer).pack()
+# Button(root, text="Tree", padx=20, pady=4, command=tree_printer).pack()
 
 root.mainloop()
