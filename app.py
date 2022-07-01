@@ -29,6 +29,11 @@ var1 = IntVar()
 c1 = Checkbutton(root, text='Copiare in nuova cartella',variable=var1, onvalue=1, offvalue=0, font=('Arial', 12))
 c1.pack()
 
+backuped = StringVar()
+renamed = StringVar()
+copied = StringVar()
+
+
 EXCLUDE = {'COPIONE', 'BACKUPS'}
 
 def foo():
@@ -55,6 +60,7 @@ def foo():
                         f_path = Path(root) / f
                         bkp.write(f'{f_path}\n')
                         # print(f_path)
+        backuped.set('Backup completato!')
 
     for sub_dir in main_dir_list:
         if sub_dir not in EXCLUDE and not sub_dir.startswith('.'):
@@ -76,6 +82,7 @@ def foo():
                         count += 1
 
     print('\nRenaming effettuato con successo!')
+    renamed.set('Renaming completato!')
     if var1.get() == 1:
         new_dir = path / 'COPIONE'
         if not os.path.exists(new_dir):
@@ -96,10 +103,14 @@ def foo():
                             # print('sub_path', sub_path)
                             # print('new_path', new_dir)
                             shutil.copytree(sub_sub_path, new_dir, dirs_exist_ok=True)
+        copied.set('Copia completata!')
         print('\nCopia effettuata con successo!')
 
 Button(root, text="Esegui", padx=20, pady=4, command=foo).pack()
 
+Label(root, width=40, textvariable=backuped, font=('Arial', 12)).pack()
+Label(root, width=40, textvariable=renamed, font=('Arial', 12)).pack()
+Label(root, width=40, textvariable=copied, font=('Arial', 12)).pack()
 
 # def tree_printer():
 #     root = Path(e.get())
