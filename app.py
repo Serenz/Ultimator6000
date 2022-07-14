@@ -98,7 +98,7 @@ def foo():
                 os.chdir(sub_path)
                 for sub_sub_dir in sub_sub_list:
                     if sub_sub_dir not in EXCLUDE:
-                    if not sub_sub_dir.startswith('.'):
+                    #if not sub_sub_dir.startswith('.'):
                         for sub_sub_dir in sub_sub_list:
                             sub_sub_path = sub_path / sub_sub_dir
                             # print('\n\n')
