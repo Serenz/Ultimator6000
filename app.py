@@ -34,7 +34,7 @@ renamed = StringVar()
 copied = StringVar()
 
 
-EXCLUDE = {'COPIONE', 'BACKUPS'}
+EXCLUDE = {'COPIONE', 'BACKUPS', '.DS_Store'}
 
 def foo():
     path = Path(e.get())
@@ -56,7 +56,7 @@ def foo():
                         bkp.write(f'{d_path}\n')
                         # print(d_path)
                 for f in files:
-                    if not 'COPIONE' in root and not 'BACKUPS' in root:
+                    if not any(x in root for x in EXCLUDE):
                         f_path = Path(root) / f
                         bkp.write(f'{f_path}\n')
                         # print(f_path)
@@ -68,7 +68,8 @@ def foo():
             sub_dir_list = os.listdir(sub_path)
             os.chdir(sub_path)
             for sub_sub_dir in sub_dir_list:
-                if not sub_sub_dir.startswith('.'):
+                if sub_sub_dir not in EXCLUDE:
+                #if not sub_sub_dir.startswith('.'):
                     sub_sub_path = sub_path / sub_sub_dir
                     sub_sub_list = os.listdir(sub_sub_path)
                     os.chdir(sub_sub_path)
@@ -96,6 +97,7 @@ def foo():
                 sub_sub_list = os.listdir(sub_path)
                 os.chdir(sub_path)
                 for sub_sub_dir in sub_sub_list:
+                    if sub_sub_dir not in EXCLUDE:
                     if not sub_sub_dir.startswith('.'):
                         for sub_sub_dir in sub_sub_list:
                             sub_sub_path = sub_path / sub_sub_dir
